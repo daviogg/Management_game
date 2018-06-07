@@ -13,6 +13,9 @@ TagManager:
   - UI
   - 
   - 
+  - Player
+  - Wall
+  - Obstacle
   - 
   - 
   - 
@@ -32,10 +35,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Background
   - 
   m_SortingLayers:
   - name: Default
