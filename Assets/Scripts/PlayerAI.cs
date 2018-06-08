@@ -54,7 +54,7 @@ public class PlayerAI : MonoBehaviour {
 
     public void OnPathComplete(Path p)
     {
-        Debug.Log("Any Error? "  + p.error);
+       
 
         if (!p.error)
         {
@@ -71,14 +71,15 @@ public class PlayerAI : MonoBehaviour {
         }
 
         if (path == null)
+        {
             return;
+        }
 
         if(currentWaypoint>= path.vectorPath.Count)
         {
+
             if (pathIsEnded)
                 return;
-
-            Debug.Log("End of path reached");
             pathIsEnded = true;
             return;
 
@@ -87,6 +88,9 @@ public class PlayerAI : MonoBehaviour {
         pathIsEnded = false;
 
         Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+
+        Debug.Log("DIREZIONE " + dir);
+
         dir *= speed * Time.fixedDeltaTime;
 
         rb.AddForce(dir, fMode);
@@ -97,7 +101,6 @@ public class PlayerAI : MonoBehaviour {
         {
             currentWaypoint++;
             return;
-
         }
     }
 
