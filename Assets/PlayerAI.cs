@@ -97,6 +97,7 @@ public class PlayerAI : MonoBehaviour {
         {
             currentWaypoint++;
             return;
+
         }
     }
 
