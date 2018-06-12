@@ -89,8 +89,6 @@ public class PlayerAI : MonoBehaviour {
 
         Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
 
-        Debug.Log("DIREZIONE " + dir);
-
         dir *= speed * Time.fixedDeltaTime;
 
         rb.AddForce(dir, fMode);
