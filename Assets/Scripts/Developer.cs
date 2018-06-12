@@ -12,8 +12,8 @@ public class Developer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Name = Names.GetRandomName();
-
         GetComponentInChildren<TextMesh>().text = Name;
+        gameObject.name = Name;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +23,7 @@ public class Developer : MonoBehaviour {
 
     private void OnMouseDown()
     {
+        GameManager.GameController.DeactiveOldDeveloper();
         GameManager.GameController.ActiveClickedDeveloper(this);
     }
 

@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 23204375378691240}
   - component: {fileID: 102639650734709204}
   m_Layer: 0
-  m_Name: TextName
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519462477440782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.598057, y: 0.95, z: -3.849369}
+  m_LocalPosition: {x: 5.598057, y: 0.19, z: -3.849369}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4370948426910800}
@@ -202,7 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  TextName: {fileID: 102639650734709204}
 --- !u!212 &212033177795825790
 SpriteRenderer:
   m_ObjectHideFlags: 1
