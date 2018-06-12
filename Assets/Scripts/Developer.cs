@@ -11,13 +11,20 @@ public class Developer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Name = "Gianfernando";
+        Name = Names.GetRandomName();
+
+        GetComponentInChildren<TextMesh>().text = Name;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    private void OnMouseDown()
+    {
+        GameManager.GameController.ActiveClickedDeveloper(this);
+    }
 
     public void AssignProject() //
     {

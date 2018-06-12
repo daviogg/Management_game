@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Computer : MonoBehaviour {
 
     public Canvas AssignMenu;
+    public Text DeveloperName;
 
     private bool isAssigned = false;
     private Developer assignedDeveloper;
@@ -27,7 +29,7 @@ public class Computer : MonoBehaviour {
 
     public void AssignLocation() //Assign this location to a developer
     {
-        if (isAssigned)
+        if (isAssigned || GameManager.GameController.ActiveDeveloper == null)
         {
             return;
         }
@@ -36,13 +38,23 @@ public class Computer : MonoBehaviour {
         assignedDeveloper.transform.position = transform.position;
         
         isAssigned = true;
+        DeveloperName.text = assignedDeveloper.Name;
+
         Debug.Log("Assigned location to " + assignedDeveloper.Name);
     }   
 
     public void UnassignLocation()
     {
+        if (!isAssigned)
+        {
+            return;
+        }
+
         assignedDeveloper.transform.position = new Vector2(5.598057f, 0.95f);
         assignedDeveloper = null;
         isAssigned = false;
+
+        DeveloperName.text = "None";
+
     }
 }
