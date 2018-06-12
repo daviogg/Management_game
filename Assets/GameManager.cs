@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
         ActiveDeveloper = toActivate;
 
         ActiveDeveloper.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
+
     }
 
     public void DeactiveOldDeveloper() //Set the clicked Developer as active

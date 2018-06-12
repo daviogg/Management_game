@@ -4,6 +4,7 @@ using UnityEngine;
 // Note this line, if it is left out, the script won't know that the class 'Path' exists and it will throw compiler errors
 // This line should always be present at the top of scripts which use pathfinding
 using Pathfinding;
+using System;
 
 public class AstarAI : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class AstarAI : MonoBehaviour
 
     public bool reachedEndOfPath;
 
+    private bool pathStart = false;
+
     public void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -45,20 +48,30 @@ public class AstarAI : MonoBehaviour
         }
         else
         {
+            pathStart = false;
             p.Release(this);
         }
     }
 
     public void Update()
     {
-        if(gameObject == GameManager.GameController.ActiveDeveloper)
+        try
         {
-            ActivePath();
+            if (gameObject == GameManager.GameController.ActiveDeveloper.gameObject || pathStart )
+            {
+                ActivePath();
+            }
         }
+        catch (NullReferenceException e)
+        {
+            
+        }
+        
     }
 
     public void ActivePath()
     {
+        pathStart = true;
         if (Time.time > lastRepath + repathRate && seeker.IsDone())
         {
             lastRepath = Time.time;
