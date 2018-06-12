@@ -7,6 +7,7 @@ public class Computer : MonoBehaviour {
     public Canvas AssignMenu;
 
     private bool isAssigned = false;
+    private Developer assignedDeveloper;
 
 	// Use this for initialization
 	void Start () {
@@ -21,21 +22,27 @@ public class Computer : MonoBehaviour {
     private void OnMouseDown()
     {        
         AssignMenu.enabled = !AssignMenu.enabled;
-        Debug.Log("Ciaodiaocao");
+        Debug.Log("Pannello aperto");
     }
 
-    public void AssignLocation()
+    public void AssignLocation() //Assign this location to a developer
     {
         if (isAssigned)
         {
             return;
         }
 
-        // get active developer
-        // assign this to him
+        assignedDeveloper = GameManager.GameController.ActiveDeveloper;
+        assignedDeveloper.transform.position = transform.position;
+        
         isAssigned = true;
-        Debug.Log("Assigned");
-    }
+        Debug.Log("Assigned location to " + assignedDeveloper.Name);
+    }   
 
-   
+    public void UnassignLocation()
+    {
+        assignedDeveloper.transform.position = new Vector2(5.598057f, 0.95f);
+        assignedDeveloper = null;
+        isAssigned = false;
+    }
 }
