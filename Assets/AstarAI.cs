@@ -28,25 +28,19 @@ public class AstarAI : MonoBehaviour
     public void Start()
     {
         seeker = GetComponent<Seeker>();
-        // If you are writing a 2D game you can remove this line
-        // and use the alternative way to move sugggested further below.
         
     }
 
     public void OnPathComplete(Path p)
     {
         
-        // Path pooling. To avoid unnecessary allocations paths are reference counted.
-        // Calling Claim will increase the reference count by 1 and Release will reduce
-        // it by one, when it reaches zero the path will be pooled and then it may be used
-        // by other scripts. The ABPath.Construct and Seeker.StartPath methods will
-        // take a path from the pool if possible. See also the documentation page about path pooling.
+        
         p.Claim(this);
         if (!p.error)
         {
             if (path != null) path.Release(this);
             path = p;
-            // Reset the waypoint counter so that we start to move towards the first point in the path
+            
             currentWaypoint = 0;
         }
         else
@@ -57,43 +51,43 @@ public class AstarAI : MonoBehaviour
 
     public void Update()
     {
+        if(gameObject == GameManager.GameController.ActiveDeveloper)
+        {
+            ActivePath();
+        }
+    }
+
+    public void ActivePath()
+    {
         if (Time.time > lastRepath + repathRate && seeker.IsDone())
         {
             lastRepath = Time.time;
-
-            // Start a new path to the targetPosition, call the the OnPathComplete function
-            // when the path has been calculated (which may take a few frames depending on the complexity)
             seeker.StartPath(transform.position, targetPosition.position, OnPathComplete);
         }
 
         if (path == null)
         {
-            // We have no path to follow yet, so don't do anything
+
             return;
         }
 
-        // Check in a loop if we are close enough to the current waypoint to switch to the next one.
-        // We do this in a loop because many waypoints might be close to each other and we may reach
-        // several of them in the same frame.
         reachedEndOfPath = false;
-        // The distance to the next waypoint in the path
+
         float distanceToWaypoint;
         while (true)
         {
-            // If you want maximum performance you can check the squared distance instead to get rid of a
-            // square root calculation. But that is outside the scope of this tutorial.
+
             distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
             if (distanceToWaypoint < nextWaypointDistance)
             {
-                // Check if there is another waypoint or if we have reached the end of the path
+
                 if (currentWaypoint + 1 < path.vectorPath.Count)
                 {
                     currentWaypoint++;
                 }
                 else
                 {
-                    // Set a status variable to indicate that the agent has reached the end of the path.
-                    // You can use this to trigger some special code if your game requires that.
+
                     reachedEndOfPath = true;
                     break;
                 }
@@ -111,6 +105,6 @@ public class AstarAI : MonoBehaviour
         Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
         // Multiply the direction by our desired speed to get a velocity
         Vector3 velocity = dir * speed * speedFactor;
-        transform.position +=  velocity * Time.deltaTime;
+        transform.position += velocity * Time.deltaTime;
     }
 }
