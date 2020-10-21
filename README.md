@@ -1,2 +1,4 @@
 # Management_game
-YEEE
+
+
+Project for an embryonic management game
